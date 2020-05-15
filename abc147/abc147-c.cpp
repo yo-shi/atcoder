@@ -23,6 +23,16 @@ bool isLowerCase(char c){
 const string btos(bool ans){
   return (ans?"Yes":"No");
 }
+int countBits(int in){
+  int res=0;
+  for(int i=0;i<15;i++){
+    int msk=1<<i;
+    if((in&msk)!=0){
+      res++;
+    }
+  }
+  return res;
+}
 int main() {
   int n;cin>>n;
   vector<vector<P>> in(n);
@@ -32,12 +42,15 @@ int main() {
     rep(j,a){
       P xy;
       cin>>xy.first>>xy.second;
+      xy.first--;
+      xy.second;
       alist[j]=xy;
     }
     in[i]=alist;
   }
   int ans=0;
-  rep(i,pow(2,n)){// Honest or Unkindの全パターン
+  rep(i,1<<n){// Honest or Unkindの全パターン
+    bool checker=true;
     rep(j,n){// N人の証言をチェック
       int ish=(i>>j)&0x01;
       if(!ish){// パターンiでHonestの証言だけ見る
@@ -46,12 +59,20 @@ int main() {
       rep(k,in[j].size()){// jさんの証言を全て見る
         int person=in[j][k].first;
         int HorU=in[j][k].second;
-        if((i>>person)&0x01==HorU){//jさんのpersonに関する証言がiと一致していればOK
+        if(((i>>person)&0x01)==HorU){//jさんのpersonに関する証言がiと一致していればOK
           continue;
         }
         // 一致していなければ
+        checker=false;
         break;
       }
+      if(!checker){
+        break;
+      }
+    }
+    if(checker){
+      int cnt=countBits(i);
+      ans=max(ans,cnt);
     }
   }
   cout << ans << endl;

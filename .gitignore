@@ -3,3 +3,5 @@ templete
 testcase
 .DS_Store
 .vscode/*
+**/contest
+**/contest.dSYM/*
