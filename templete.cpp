@@ -4,17 +4,14 @@ typedef long long ll;
 typedef unsigned long long ull;
 typedef pair<int,int> P;
 
-#define repr(i, n) for(int i = n; i >= 0; i--)
-#define reprl(i, n) for(ll i = n; i >= 0; i--)
 #define all(v) v.begin(), v.end()
 
 const ll mod=1000000007;
 
-int countBits(int in){
+ll countBits(ll in){
   int res=0;
-  for(int i=0;i<10;i++){
-    int msk=1<<i;
-    if((in&msk)!=0){
+  for(;in>0;in>>=1){
+    if((in&0x01)!=0){
       res++;
     }
   }
@@ -71,7 +68,7 @@ ll lcm(ll a,ll b) {
 bool isLowerCase(char c){
   return (c>='a'&&c<='z');
 }
-const string outputYesNo(bool ans){
+const string yesno(bool ans){
   return (ans?"Yes":"No");
 }
 int main() {
