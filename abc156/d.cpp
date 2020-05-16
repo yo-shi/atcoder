@@ -80,12 +80,45 @@ ll powm(ll a,ll n, ll m){
   }
   return ret;
 }
-
 const string yesno(bool ans){
   return (ans?"Yes":"No");
 }
 int main() {
-  int ans=0;
+  ll n,a,b;cin>>n>>a>>b;
+  ll ans=0;
+  ll tot=powm(2,n,mod);
+  ll nCa=1;
+  for(int i=0;i<a;i++){
+    nCa*=n-i;
+    nCa%=mod;
+  }
+  ll nCa_sub=1;
+  for(int i=0;i<a;i++){
+    nCa_sub*=a-i;
+    nCa_sub%=mod;
+  }
+  nCa_sub=powm(nCa_sub,mod-2,mod);
+  nCa*=nCa_sub;
+  nCa%=mod;
+
+  //nCb
+  ll nCb=1;
+  for(int i=0;i<b;i++){
+    nCb*=n-i;
+    nCb%=mod;
+  }
+  ll nCb_sub=1;
+  for(int i=0;i<b;i++){
+    nCb_sub*=b-i;
+    nCb_sub%=mod;
+  }
+  nCb_sub=powm(nCb_sub,mod-2,mod);
+  nCb*=nCb_sub;
+  nCb%=mod;
+
+  ans=tot-nCa-nCb-1;
+  ans%=mod;
+  if(ans<0)ans+=mod;
   cout<<ans<<endl;
   return 0;
 }
