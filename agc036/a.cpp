@@ -85,16 +85,10 @@ const string yesno(bool ans){
   return (ans?"Yes":"No");
 }
 int main() {
-  int n;cin>>n;
-  set<int> ans;
-  for(int i=0;i<n;i++){
-    int a;cin>>a;
-    if(ans.find(a)!=ans.end()){
-      ans.erase(a);
-    }else{
-      ans.insert(a);
-    }
-  }
-  cout<<ans.size()<<endl;
+  ll s;cin>>s;
+  ll x,y;
+  x=(1000000000-s%1000000000)%1000000000;
+  y=(s+x)/1000000000;
+  cout<<0<<' '<<0<<' '<<1000000000<<' '<<1<<' '<<x<<' '<<y<<endl;
   return 0;
 }
