@@ -85,15 +85,24 @@ const string yesno(bool ans){
   return (ans?"Yes":"No");
 }
 int main() {
-  int n,k;cin>>n>>k;
-  vector<int> l(n);
+  int n;cin>>n;
+  vector<ll> a(n);
   for(int i=0;i<n;i++){
-    cin>>l[i];
+    cin>>a[i];
   }
-  sort(all(l),greater<int>());
-  int ans=0;
-  for(int i=0;i<k;i++){
-    ans+=l[i];
+  ll ans=0;
+  for(int i=0;i<60;i++){
+    ll cnt[2]={0,0};
+    for(int j=0;j<n;j++){
+      int val=(a[j]>>i)&0x01;
+      cnt[val]++;
+    }
+    cerr<<(1<<i)<<" : "<<cnt[0]<<" : "<<cnt[1]<<endl;
+    ll p=cnt[0]*cnt[1]%mod;
+    p*=(1LL<<i)%mod;
+    p%=mod;
+    ans+=p;
+    ans%=mod;
   }
   cout<<ans<<endl;
   return 0;
