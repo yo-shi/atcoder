@@ -82,15 +82,27 @@ ll powm(ll a,ll n, ll m){
 }
 
 const string yesno(bool ans){
-  return (ans?"yes":"no");
+  return (ans?"Yes":"No");
 }
 int main() {
-  ll a;
-  double b;
-  cin>>a>>b;
-  b*=100.0;
-  ll c=llround(b);
-  ll ans=a*c/100;
+  int x,n;cin>>x>>n;
+  set<int> p;
+  for(int i=0;i<n;i++){
+    int v;cin>>v;
+    p.insert(v);
+  }
+  int ans=0;
+  int minans=10000;
+  for(int i=-100;i<120;i++){
+    int val=abs(x-i);
+    if(p.find(i)!=p.end()){
+      continue;
+    }
+    if(val<minans){
+      ans=i;
+      minans=val;
+    }
+  }
   cout<<ans<<endl;
   return 0;
 }

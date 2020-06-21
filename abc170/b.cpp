@@ -82,15 +82,25 @@ ll powm(ll a,ll n, ll m){
 }
 
 const string yesno(bool ans){
-  return (ans?"yes":"no");
+  return (ans?"Yes":"No");
 }
 int main() {
-  ll a;
-  double b;
-  cin>>a>>b;
-  b*=100.0;
-  ll c=llround(b);
-  ll ans=a*c/100;
-  cout<<ans<<endl;
+  int x,y;cin>>x>>y;
+  int a,b;
+  if((y-2*x)%2==0){
+    b=(y-2*x)/2;
+    if(b<0){
+      cout<<yesno(false)<<endl;
+      return 0;
+    }
+    if(x-b<0){
+      cout<<yesno(false)<<endl;
+      return 0;
+    }
+  }else{
+    cout<<yesno(false)<<endl;
+    return 0;
+  }
+  cout<<yesno(true)<<endl;
   return 0;
 }

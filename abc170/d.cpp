@@ -82,15 +82,32 @@ ll powm(ll a,ll n, ll m){
 }
 
 const string yesno(bool ans){
-  return (ans?"yes":"no");
+  return (ans?"Yes":"No");
 }
 int main() {
-  ll a;
-  double b;
-  cin>>a>>b;
-  b*=100.0;
-  ll c=llround(b);
-  ll ans=a*c/100;
+  int n;cin>>n;
+  vector<int> a(n,0);
+  for(int i=0;i<n;i++){
+    cin>>a[i];
+  }
+  sort(all(a));
+  int ans=0;
+  vector<bool> dp(a[n-1]+1,true);
+  for(int i=0;i<n;i++){
+    int val=a[i];
+    for(int j=val*2;j<=a[n-1];j+=val){
+      dp[j]=false;
+    }
+  }
+  for(int i=0;i<n;i++){
+    if(dp[a[i]]){
+      ans++;
+      if(i!=n-1&&a[i]==a[i+1]){
+        ans--;
+      }
+      dp[a[i]]=false;
+    }
+  }
   cout<<ans<<endl;
   return 0;
 }
