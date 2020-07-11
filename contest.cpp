@@ -82,15 +82,22 @@ ll powm(ll a,ll n, ll m){
 }
 
 const string yesno(bool ans){
-  return (ans?"yes":"no");
+  return (ans?"Yes":"No");
 }
 int main() {
-  ll a;
-  double b;
-  cin>>a>>b;
-  b*=100.0;
-  ll c=llround(b);
-  ll ans=a*c/100;
-  cout<<ans<<endl;
+  string s;cin>>s;
+  int k;cin>>k;
+  int ans=0;
+  int n=s.size();
+  if(n<k){
+    cout<<ans<<endl;
+    return 0;
+  }
+  set<string> st;
+  for(int i=0;i<n-k+1;i++){
+    string tar=s.substr(i,k);
+    st.insert(tar);
+  }
+  cout<<st.size()<<endl;
   return 0;
 }
