@@ -85,19 +85,17 @@ const string yesno(bool ans){
   return (ans?"Yes":"No");
 }
 int main() {
-  string s;cin>>s;
-  int k;cin>>k;
-  int ans=0;
-  int n=s.size();
-  if(n<k){
-    cout<<ans<<endl;
-    return 0;
+  int n;cin>>n;
+  vector<int> ans;
+  for(int i=0;i<4;i++){
+    int val=n&(1<<i);
+    if(val>0){
+      ans.push_back(val);
+    }
   }
-  set<string> st;
-  for(int i=0;i<n-k+1;i++){
-    string tar=s.substr(i,k);
-    st.insert(tar);
+  cout<<ans.size()<<endl;
+  for(int i=0;i<ans.size();i++){
+    cout<<ans[i]<<endl;
   }
-  cout<<st.size()<<endl;
   return 0;
 }
