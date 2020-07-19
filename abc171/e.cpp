@@ -85,7 +85,16 @@ const string yesno(bool ans){
   return (ans?"Yes":"No");
 }
 int main() {
-  int ans=0;
-  cout<<ans<<endl;
+  int n;cin>>n;
+  vector<int> a(n);
+  int tot=0;
+  for(int i=0;i<n;i++){
+    cin>>a[i];
+    tot^=a[i];
+  }
+  for(int i=0;i<n;i++){
+    int ans=tot^a[i];
+    cout<<ans<<endl;
+  }
   return 0;
 }
