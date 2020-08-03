@@ -101,7 +101,24 @@ const string yesno(bool ans){
   return (ans?"Yes":"No");
 }
 int main() {
+  ll n;cin>>n;
   int ans=0;
+  map<ll,int> pl;
+  for(ll i=2;i*i<=n;i++){
+    while(n%i==0){
+      pl[i]++;
+      n/=i;
+    }
+  }
+  if(n!=1){
+    pl[n]=1;
+  }
+  for(auto it:pl){
+    for(int s=1;s<=it.second;s++){
+      it.second-=s;
+      ans++;
+    }
+  }
   cout<<ans<<endl;
   return 0;
 }
