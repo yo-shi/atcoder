@@ -4,17 +4,14 @@ typedef long long ll;
 typedef unsigned long long ull;
 typedef pair<int,int> P;
 
-#define repr(i, n) for(int i = n; i >= 0; i--)
-#define reprl(i, n) for(ll i = n; i >= 0; i--)
 #define all(v) v.begin(), v.end()
 
 const ll mod=1000000007;
 
-int countBits(int in){
+ll countBits(ll in){
   int res=0;
-  for(int i=0;i<10;i++){
-    int msk=1<<i;
-    if((in&msk)!=0){
+  for(;in>0;in>>=1){
+    if((in&0x01)!=0){
       res++;
     }
   }
@@ -71,33 +68,73 @@ ll lcm(ll a,ll b) {
 bool isLowerCase(char c){
   return (c>='a'&&c<='z');
 }
-const string outputYesNo(bool ans){
+
+ll powm(ll a,ll n, ll m){
+  ll ret=1;
+  while(n>0){
+    if(n%2==1){
+      ret=(ret*a)%m;
+    }
+    n>>=1;
+    a=(a*a)%m;
+  }
+  return ret;
+}
+
+void primeFactor(ll val, map<ll,ll> &primeList){
+  if(val<1){
+    return;
+  }
+  for(int i=2;i*i<val;i++){
+    while(val%i==0){
+      primeList[i]++;
+      val/=i;
+    }
+  }
+  if(val!=1){
+    primeList[val]=1;
+  }
+  return;
+}
+
+const string yesno(bool ans){
   return (ans?"Yes":"No");
 }
-int main() {
-  int n,m,q;cin>>n>>m>>q;
-  vector<int> a(q);
-  vector<int> b(q);
-  vector<int> c(q);
-  vector<int> d(q);
-  map<int,vector<int>> query;
-  for(int i=0;i<q;i++){
-    int a,b,c,d;cin>>a>>b>>c>>d;
-    vector<int> s={a,b,c};
-    query[d]=s;
-  }
-  ll ans=0;
-  vector<int> seq(n,1);
-  vector<bool> cgbit(n,false);
-  for(auto it=query.rbegin();it!=query.rend();++it){
-    seq[it->second[1]]=seq[it->second[0]]+it->second[2];
-    cgbit[it->second[1]]=true;
-  }
-  for(int i=0;i<m-1;i++){
-      for(int j=0;j<n-1;j++){
-          ;
+
+int n, m, q;
+int a[50];
+int b[50];
+int c[50];
+int d[50];
+
+int f(int depth,int start, vector<int> g){
+  int ret=0;
+  if(depth==n){
+    int sum=0;
+    for(int i=0;i<q;i++){
+      if(g[b[i]]-g[a[i]]==c[i]){
+        sum+=d[i];
       }
+    }
+    return sum;
   }
+  for(int i=start;i<=m;i++){
+    g[depth]=i;
+    int val=f(depth+1,i,g);
+    ret=max(ret,val);
+  }
+  return ret;
+}
+int main() {
+  cin >> n >> m >> q;
+  for(int i=0;i<q;i++){
+    cin>>a[i];a[i]--;
+    cin>>b[i];b[i]--;
+    cin>>c[i];
+    cin>>d[i];
+  }
+  vector<int> g(11);
+  int ans=f(0,1,g);
   cout<<ans<<endl;
   return 0;
 }
