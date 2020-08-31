@@ -69,6 +69,20 @@ bool isLowerCase(char c){
   return (c>='a'&&c<='z');
 }
 
+char toLowerCase(char c){
+  if(isLowerCase(c)){
+    return c;
+  }else{
+    return c+'a'-'A';
+  }
+}
+char toUpperCase(char c){
+  if(isLowerCase(c)){
+    return c-('a'-'A');
+  }else{
+    return c;
+  }
+}
 ll powm(ll a,ll n, ll m){
   ll ret=1;
   while(n>0){
@@ -85,17 +99,10 @@ const string yesno(bool ans){
   return (ans?"Yes":"No");
 }
 int main() {
-  int n;cin>>n;
-  vector<int> ans;
-  for(int i=0;i<4;i++){
-    int val=n&(1<<i);
-    if(val>0){
-      ans.push_back(val);
-    }
+  string s;cin>>s;
+  for(int i=0;i<s.size();i++){
+    s[i]=(i==0)?toUpperCase(s[i]):toLowerCase(s[i]);
   }
-  cout<<ans.size()<<endl;
-  for(int i=0;i<ans.size();i++){
-    cout<<ans[i]<<endl;
-  }
+  cout<<s<<endl;
   return 0;
 }

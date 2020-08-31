@@ -68,7 +68,20 @@ ll lcm(ll a,ll b) {
 bool isLowerCase(char c){
   return (c>='a'&&c<='z');
 }
-
+char toLowerCase(char c){
+  if(isLowerCase(c)){
+    return c;
+  }else{
+    return c+'a'-'A';
+  }
+}
+char toUpperCase(char c){
+  if(isLowerCase(c)){
+    return c-('a'-'A');
+  }else{
+    return c;
+  }
+}
 ll powm(ll a,ll n, ll m){
   ll ret=1;
   while(n>0){
