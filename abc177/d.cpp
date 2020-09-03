@@ -41,22 +41,16 @@ void bfs(const vector<vector<int>>&g, int v, vector<bool>& seen){
   }
 }
 
-bool dfs(vector<vector<int>> &g,int start,int goal,vector<bool>&seen){
-  bool res=false;
+int dfs(vector<vector<int>> &g,int start,int goal,vector<bool>&seen){
   seen[start]=true;
-  if(start==goal){
-    return true;
-  }
+  // cerr<<start<<" : "<<goal<<endl;
   for(auto next: g[start]){
     if(seen[next]){
       continue;
     }
-    res=dfs(g,next,goal,seen);
-    if(res){
-      break;
-    }
+    goal=dfs(g,next,goal+1,seen);
   }
-  return res;
+  return goal;
 }
 
 ll gcd(ll a,ll b) {
@@ -110,14 +104,15 @@ int main() {
       g[b].push_back(a);
     }
   }
-  int ans=0;
-  for(int i=1;i<=n;i++){
-    vector<int>& tar=g[i];
-    for(int j=0;j<tar.size();j++){
-      for(int k=0;k<n;k++){}
-      g[tar[j]];
+  int ans=-1;
+  vector<bool> seen(n+1,false);
+  for(int i=1;i<n+1;i++){
+    if(seen[i]){
+      continue;
     }
-    ans=max(ans,(int)(g[i].size())+1);
+    int res=dfs(g,i,1,seen);
+    ans=max(ans,res);
+    // cerr<<"------"<<endl;
   }
   cout<<ans<<endl;
   return 0;
