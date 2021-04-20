@@ -68,7 +68,6 @@ ll lcm(ll a,ll b) {
 bool isLowerCase(char c){
   return (c>='a'&&c<='z');
 }
-
 char toLowerCase(char c){
   if(isLowerCase(c)){
     return c;
@@ -95,14 +94,36 @@ ll powm(ll a,ll n, ll m){
   return ret;
 }
 
+void primeFactor(ll val, map<ll,ll> &primeList){
+  if(val<1){
+    return;
+  }
+  for(int i=2;i*i<val;i++){
+    while(val%i==0){
+      primeList[i]++;
+      val/=i;
+    }
+  }
+  if(val!=1){
+    primeList[val]=1;
+  }
+  return;
+}
+
 const string yesno(bool ans){
-  return (ans?"Yes":"No");
+  return (ans?"White":"Black");
 }
 int main() {
-  string s;cin>>s;
-  for(int i=0;i<s.size();i++){
-    s[i]=(i==0)?toUpperCase(s[i]):toLowerCase(s[i]);
+  int n;cin>>n;
+  vector<P> point(n);
+  vector<int> R(n);
+  for(int i=0;i<n;i++){
+    cin>>point[i].first>>point[i].second>>R[i];
   }
-  cout<<s<<endl;
+  for(int i=0;i<n;i++){
+    int x=point[i].first;
+    int y=point[i].second;
+    cout<<x<<" "<<y<<" "<<x+1<<" "<<y+1<<endl;
+  }
   return 0;
 }
